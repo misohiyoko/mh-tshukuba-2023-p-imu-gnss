@@ -1,0 +1,131 @@
+
+(rules PCB gnss-9axis
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 7)
+    (layer_rule F.Cu
+      (active off)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule In1.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule In2.Cu
+      (active off)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 400.0 (type default-RF))
+    (clear 50.0 (type smd-smd))
+    (clear 400.0 (type smd-RF))
+    (clear 400.0 (type "kicad_default"-RF))
+    (clear 400.0 (type RF-RF))
+  )
+  (padstack "Via[0-3]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle In1.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle In2.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-3]_800:400_um" "Via[0-3]_800:400_um" default
+  )
+  (via 
+    "Via[0-3]_800:400_um-kicad_default" "Via[0-3]_800:400_um" "kicad_default"
+  )
+  (via 
+    "Via[0-3]_800:400_um-RF" "Via[0-3]_800:400_um" RF
+  )
+  (via_rule
+    default "Via[0-3]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-3]_800:400_um-kicad_default"
+  )
+  (via_rule
+    RF "Via[0-3]_800:400_um-RF"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer In1.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "Net-(BT1-+)" GND "Net-(C4-Pad1)" "Net-(J3-Pin_1)" /BOOT0 "Net-(U4-NRST)" "/OSC_IN" "/OSC_OUT"
+    "Net-(D3-K)" "unconnected-(J4-Pin_1-Pad1)" /SWDIO /SWCLK "/CAN_RX" "/CAN_TX" "unconnected-(J6-Pin_5-Pad5)" "Net-(JP1-A)"
+    "Net-(JP2-B)" "Net-(U4-PB1)" "Net-(U2-Rs)" /Vref /GNSSTX /GNSSRX /TIMEPULSE "unconnected-(U1-EXTINT-Pad5)"
+    "unconnected-(U1-~{RESET}-Pad9)" "unconnected-(U1-LNA_EN-Pad13)" "unconnected-(U1-VCC_RF-Pad14)" "unconnected-(U1-VIO_SEL-Pad15)" "unconnected-(U1-SDA-Pad16)" "unconnected-(U1-SCL-Pad17)" "unconnected-(U1-~{SAFEBOOT}-Pad18)" /MISO
+    "unconnected-(U3-NC-Pad2)" "unconnected-(U3-NC-Pad3)" /INT1 "unconnected-(U3-INT2-Pad9)" "unconnected-(U3-NC-Pad10)" "unconnected-(U3-NC-Pad11)" /CSB /SCK
+    /MOSI "Net-(D5-A)" "/CAN-" /CAN+
+    (clearance_class "kicad_default")
+    (via_rule "kicad_default")
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer In1.Cu B.Cu)
+    )
+  )
+  (class RF
+    /RF
+    (clearance_class RF)
+    (via_rule RF)
+    (rule
+      (width 349.4)
+    )
+    (circuit 
+      (use_layer In1.Cu B.Cu)
+    )
+  )
+  (class PWR
+    +3V3 VCC
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 500.0)
+    )
+    (circuit 
+      (use_layer F.Cu In1.Cu In2.Cu B.Cu)
+    )
+  )
+)
